@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - ShopEase</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <div class="logo" onclick="navigateTo('index.html')">
+        <h1>ShopEase</h1>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search for products...">
+        <button id="search-button">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+      </div>
+      <div class="header-actions">
+        <div class="account-dropdown" id="account-dropdown">
+          <div class="account-trigger">
+            <span class="material-symbols-outlined">person</span>
+            <span>Account</span>
+          </div>
+          <div class="dropdown-content" id="account-dropdown-content">
+            <div id="not-logged-in">
+              <button class="btn" onclick="showModal('login-modal')">Sign In</button>
+              <p>New customer? <a href="#" onclick="showModal('register-modal')">Start here</a></p>
+            </div>
+            <div id="logged-in" style="display: none;">
+              <p>Hello, <span id="user-name">User</span></p>
+              <a href="#" onclick="navigateTo('account.html')">Your Account</a>
+              <a href="#" onclick="logout()">Sign Out</a>
+            </div>
+          </div>
+        </div>
+        <div class="cart" onclick="navigateTo('cart.html')">
+          <span class="material-symbols-outlined">shopping_cart</span>
+          <span id="cart-count">0</span>
+        </div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#" onclick="navigateTo('index.html')">Home</a></li>
+        <li><a href="#" onclick="navigateTo('products.html')">All Products</a></li>
+        <li><a href="#" onclick="navigateTo('products.html?category=electronics')">Electronics</a></li>
+        <li><a href="#" onclick="navigateTo('products.html?category=clothing')">Clothing</a></li>
+        <li><a href="#" onclick="navigateTo('products.html?category=home')">Home & Kitchen</a></li>
+        <li><a href="#" onclick="navigateTo('products.html?category=books')">Books</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <div class="products-container">
+      <aside class="filters">
+        <h3>Filters</h3>
+        <div class="filter-section">
+          <h4>Categories</h4>
+          <div class="filter-options">
+            <label>
+              <input type="checkbox" class="category-filter" value="electronics"> Electronics
+            </label>
+            <label>
+              <input type="checkbox" class="category-filter" value="clothing"> Clothing
+            </label>
+            <label>
+              <input type="checkbox" class="category-filter" value="home"> Home & Kitchen
+            </label>
+            <label>
+              <input type="checkbox" class="category-filter" value="books"> Books
+            </label>
+          </div>
+        </div>
+        <div class="filter-section">
+          <h4>Price Range</h4>
+          <div class="filter-options">
+            <label>
+              <input type="checkbox" class="price-filter" value="0-25"> $0 - $25
+            </label>
+            <label>
+              <input type="checkbox" class="price-filter" value="25-50"> $25 - $50
+            </label>
+            <label>
+              <input type="checkbox" class="price-filter" value="50-100"> $50 - $100
+            </label>
+            <label>
+              <input type="checkbox" class="price-filter" value="100-500"> $100 - $500
+            </label>
+            <label>
+              <input type="checkbox" class="price-filter" value="500+"> $500+
+            </label>
+          </div>
+        </div>
+        <div class="filter-section">
+          <h4>Rating</h4>
+          <div class="filter-options">
+            <label>
+              <input type="checkbox" class="rating-filter" value="4+"> 4★ & Above
+            </label>
+            <label>
+              <input type="checkbox" class="rating-filter" value="3+"> 3★ & Above
+            </label>
+            <label>
+              <input type="checkbox" class="rating-filter" value="2+"> 2★ & Above
+            </label>
+            <label>
+              <input type="checkbox" class="rating-filter" value="1+"> 1★ & Above
+            </label>
+          </div>
+        </div>
+        <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
+        <button id="clear-filters" class="btn">Clear All</button>
+      </aside>
+
+      <div class="products-list">
+        <div class="products-header">
+          <h2 id="products-title">All Products</h2>
+          <div class="sort-options">
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Avg. Customer Review</option>
+              <option value="newest">Newest Arrivals</option>
+            </select>
+          </div>
+        </div>
+        <div class="product-grid" id="products-grid">
+          <!-- Products will be loaded here via JavaScript -->
+        </div>
+        <div class="pagination" id="pagination">
+          <!-- Pagination will be generated here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>ShopEase</h3>
+        <p>Your one-stop shopping destination for all your needs.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#" onclick="navigateTo('index.html')">Home</a></li>
+          <li><a href="#" onclick="navigateTo('products.html')">Products</a></li>
+          <li><a href="#" onclick="navigateTo('cart.html')">Cart</a></li>
+          <li><a href="#" onclick="navigateTo('account.html')">Account</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: support@shopease.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 ShopEase. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <div class="modal" id="login-modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="hideModal('login-modal')">&times;</span>
+      <h2>Sign In</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+      <p>Don't have an account? <a href="#" onclick="switchModal('login-modal', 'register-modal')">Register</a></p>
+    </div>
+  </div>
+
+  <div class="modal" id="register-modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="hideModal('register-modal')">&times;</span>
+      <h2>Create Account</h2>
+      <form id="register-form">
+        <div class="form-group">
+          <label for="register-name">Your Name</label>
+          <input type="text" id="register-name" required>
+        </div>
+        <div class="form-group">
+          <label for="register-email">Email</label>
+          <input type="email" id="register-email" required>
+        </div>
+        <div class="form-group">
+          <label for="register-password">Password</label>
+          <input type="password" id="register-password" required>
+        </div>
+        <div class="form-group">
+          <label for="register-confirm-password">Confirm Password</label>
+          <input type="password" id="register-confirm-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+      <p>Already have an account? <a href="#" onclick="switchModal('register-modal', 'login-modal')">Sign In</a></p>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="products.js"></script>
+</body>
+</html>

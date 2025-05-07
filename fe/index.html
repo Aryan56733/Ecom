@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Your One-Stop Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="chat.css">
+    <script src="chat.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-top">
+            <div class="logo" onclick="navigateTo('index.html')">
+                <h1>ShopEase</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search for products...">
+                <button id="search-button">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <div class="header-actions">
+                <div class="account-dropdown" id="account-dropdown">
+                    <div class="account-trigger">
+                        <span class="material-symbols-outlined">person</span>
+                        <span>Account</span>
+                    </div>
+                    <div class="dropdown-content" id="account-dropdown-content">
+                        <div id="not-logged-in">
+                            <button class="btn" onclick="showModal('login-modal')">Sign In</button>
+                            <p>New customer? <a href="#" onclick="showModal('register-modal')">Start here</a></p>
+                        </div>
+                        <div id="logged-in" style="display: none;">
+                            <p>Hello, <span id="user-name">User</span></p>
+                            <a href="#" onclick="navigateTo('account.html')">Your Account</a>
+                            <a href="#" onclick="logout()">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart" onclick="navigateTo('cart.html')">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" onclick="navigateTo('index.html')">Home</a></li>
+                <li><a href="#" onclick="navigateTo('products.html')">All Products</a></li>
+                <li><a href="#" onclick="navigateTo('products.html?category=electronics')">Electronics</a></li>
+                <li><a href="#" onclick="navigateTo('products.html?category=clothing')">Clothing</a></li>
+                <li><a href="#" onclick="navigateTo('products.html?category=home')">Home & Kitchen</a></li>
+                <li><a href="#" onclick="navigateTo('products.html?category=books')">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Welcome to ShopEase</h2>
+                <p>Discover amazing products at unbeatable prices</p>
+                <button class="btn btn-primary" onclick="navigateTo('products.html')">Shop Now</button>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-grid" id="featured-products-grid">
+                <!-- Products will be loaded here via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories">
+            <h2>Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="navigateTo('products.html?category=electronics')">
+                    <div class="category-img">
+                        <span class="material-symbols-outlined category-icon">devices</span>
+                    </div>
+                    <h3>Electronics</h3>
+                </div>
+                <div class="category-card" onclick="navigateTo('products.html?category=clothing')">
+                    <div class="category-img">
+                        <span class="material-symbols-outlined category-icon">checkroom</span>
+                    </div>
+                    <h3>Clothing</h3>
+                </div>
+                <div class="category-card" onclick="navigateTo('products.html?category=home')">
+                    <div class="category-img">
+                        <span class="material-symbols-outlined category-icon">chair</span>
+                    </div>
+                    <h3>Home & Kitchen</h3>
+                </div>
+                <div class="category-card" onclick="navigateTo('products.html?category=books')">
+                    <div class="category-img">
+                        <span class="material-symbols-outlined category-icon">menu_book</span>
+                    </div>
+                    <h3>Books</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deals Section -->
+        <section class="deals">
+            <h2>Today's Deals</h2>
+            <div class="product-grid" id="deals-grid">
+                <!-- Deals will be loaded here via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShopEase</h3>
+                <p>Your one-stop shopping destination for all your needs.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('index.html')">Home</a></li>
+                    <li><a href="#" onclick="navigateTo('products.html')">Products</a></li>
+                    <li><a href="#" onclick="navigateTo('cart.html')">Cart</a></li>
+                    <li><a href="#" onclick="navigateTo('account.html')">Account</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@shopease.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 ShopEase. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="hideModal('login-modal')">&times;</span>
+            <h2>Sign In</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            <p>Don't have an account? <a href="#" onclick="switchModal('login-modal', 'register-modal')">Register</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="hideModal('register-modal')">&times;</span>
+            <h2>Create Account</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Your Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            <p>Already have an account? <a href="#" onclick="switchModal('register-modal', 'login-modal')">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="bot" onclick="openChat()">
+        <svg class="bot-icon" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 0 24 24" width="32"
+            fill="#ffffff">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+                d="M12 2C6.48 2 2 6.25 2 11c0 2.13.94 4.1 2.5 5.6V22l4.01-2.15C9.24 20.26 10.59 20.5 12 20.5c5.52 0 10-4.25 10-9.5S17.52 2 12 2zm0 15.5c-1.27 0-2.47-.3-3.53-.83l-.47-.25-2.5 1.34v-2.68l-.34-.35C4.54 14.16 4 12.64 4 11c0-3.86 3.58-7 8-7s8 3.14 8 7-3.58 7-8 7z" />
+        </svg>
+    </div>
+
+
+
+
+    <main
+        class="sm:w-xl w-full border border-slate-800 xs:rounded-lg overflow-hidden shadow-lg grid grid-rows-[auto_1fr_auto] min-h-100 z-10">
+        <header class="py-2 px-4 bg-slate-800 shadow-lg flex items-center justify-between">
+            <div class="px-3 py-1 hover:bg-slate-700/50 rounded-lg transition cursor-pointer">
+                <h1 class="text-3xl font-bold text-white">Chat</h1>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-1 hover:bg-indigo-500/50 rounded-lg transition cursor-pointer">
+                <p class="text-white text-xl">Mike</p>
+                <img class="rounded-full" src="https://placehold.co/40x40/png" alt="">
+            </div>
+        </header>
+
+        <section class="bg-slate-800/70 overflow-y-scroll">
+            <div id="messageBox" class="flex flex-col gap-4 py-3 px-7 min-h-full justify-end">
+
+                <div class="MESSAGE-L max-w-[80%] grid grid-cols-[auto_1fr] gap-x-2 self-start">
+                    <img class="row-2 rounded-full shadow-lg border-2 border-indigo-500"
+                        src="https://placehold.co/45x45/png" alt="profile">
+                    <div class="col-2 px-3 py-1 flex items-center gap-2">
+                        <span class="NAME text-indigo-100 font-bold">Jerry</span>
+                        <span class="TIMESTAMP text-indigo-100 text-sm">11:29 am</span>
+                    </div>
+                    <p class="MESSAGE col-2 p-3 bg-indigo-700 rounded-lg text-white shadow-lg">Lorem ipsum dolor sit
+                        amet consectetur adipisicing elit. Soluta distinctio porro.</p>
+                </div>
+
+                <div class="MESSAGE-R max-w-[80%] grid gap-x-2 justify-items-end self-end">
+                    <div class="col-2 px-3 py-1">
+                        <span class="TIMESTAMP text-indigo-100 text-sm">11:39 am</span>
+                    </div>
+                    <p class="MESSAGE col-2 p-3 bg-purple-500 rounded-lg text-white shadow-lg">Lorem ipsum dolor sit
+                        amet consectetur adipisicing elit. Soluta distinctio porro.</p>
+                </div>
+
+                <div class="DOTS text-white/50">Typing...</div>
+            </div>
+        </section>
+
+        <footer class="py-3 px-7 bg-slate-800">
+            <form id="sendForm" class="flex gap-2">
+                <input
+                    class="w-full py-2 px-4 border border-slate-300/70 hover:border-slate-300/90 focus:ring-2 focus:ring-purple-300/50 rounded-md outline-0 transition text-white placeholder:text-white/50"
+                    name="message" type="text" placeholder="What have you to say?" autocomplete="off">
+                <button
+                    class="py-2 px-4 bg-purple-700 hover:bg-purple-600 transition text-white rounded-md focus:ring-2 focus:ring-purple-300/50 cursor-pointer"
+                    type="submit">Send</button>
+            </form>
+        </footer>
+    </main>
+
+
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+        <script>
+            const sendForm = document.getElementById("sendForm");
+            const input = sendForm.elements["message"];
+            const messageBox = document.getElementById("messageBox");
+            const dots = document.querySelector(".DOTS");
+
+            function appendMessage(content, type = "user", timestamp = "") {
+    const messageDiv = document.createElement("div");
+            messageDiv.classList.add(type === "user" ? "MESSAGE-R" : "MESSAGE-L", "max-w-[80%]", "grid", "gap-x-2", "self-" + (type === "user" ? "end" : "start"));
+
+            if (type === "user") {
+                messageDiv.innerHTML = `
+        <div class="col-2 px-3 py-1">
+          <span class="TIMESTAMP text-indigo-100 text-sm">${timestamp}</span>
+        </div>
+        <p class="MESSAGE col-2 p-3 bg-purple-500 rounded-lg text-white shadow-lg">${content}</p>
+      `;
+    } else {
+                messageDiv.innerHTML = `
+        <img class="row-2 rounded-full shadow-lg border-2 border-indigo-500" src="https://placehold.co/45x45/png" alt="profile">
+        <div class="col-2 px-3 py-1 flex items-center gap-2">
+          <span class="NAME text-indigo-100 font-bold">AI</span>
+          <span class="TIMESTAMP text-indigo-100 text-sm">${timestamp}</span>
+        </div>
+        <p class="MESSAGE col-2 p-3 bg-indigo-700 rounded-lg text-white shadow-lg">${content}</p>
+      `;
+    }
+
+            messageBox.appendChild(messageDiv);
+            messageBox.scrollTop = messageBox.scrollHeight;
+  }
+
+            function formatTime(date) {
+    return date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit' });
+  }
+
+  sendForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+            const message = input.value.trim();
+            if (!message) return;
+
+            const timestamp = formatTime(new Date());
+            appendMessage(message, "user", timestamp);
+            input.value = "";
+
+            // Show typing indicator
+            dots.style.display = "block";
+
+            try {
+      const res = await fetch("http://localhost:8000/chat", {
+                method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+        },
+            body: JSON.stringify({message})
+      });
+
+            const data = await res.json();
+            if (data && data.reply) {
+                appendMessage(data.reply, "ai", formatTime(new Date()));
+      } else {
+                appendMessage("Error: Invalid response from server.", "ai", formatTime(new Date()));
+      }
+    } catch (err) {
+                appendMessage("Error: Unable to reach the server.", "ai", formatTime(new Date()));
+            console.error(err);
+    } finally {
+                dots.style.display = "none";
+    }
+  });
+    </script>
+
+    </script>
+</body>
+
+</html>
